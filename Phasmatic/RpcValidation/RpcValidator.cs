@@ -16,14 +16,14 @@ namespace Phasmatic.RpcValidation
 
         public abstract string Name { get; }
 
-        protected abstract bool ValidateInternal(RpcExecution rpcExecution);
+        protected abstract bool ValidateInternal(ref RpcExecutionContext ctx);
 
-        public virtual bool Validate(RpcExecution rpcExecution)
+        public virtual bool Validate(ref RpcExecutionContext ctx)
         {
-            rpcExecution.Validator = this;
-            bool isValid = ValidateInternal(rpcExecution);
-            rpcExecution.IsValid = isValid;
-            InstanceTracker.Current.AddExecution(rpcExecution);
+            ctx.Validator = this;
+            bool isValid = ValidateInternal(ref ctx);
+            ctx.IsValid = isValid;
+            InstanceTracker.Current.AddExecution(ctx);
             return isValid;
         }
     }

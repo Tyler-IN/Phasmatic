@@ -10,9 +10,9 @@ namespace Phasmatic.RpcValidation.Items
     {
         public override string Name => "SyncCameraNetworked";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
-            int newIndex = execution.GetArgument<int>(0);
+            int newIndex = ctx.GetArgument<int>(0);
 
             return true;
         }

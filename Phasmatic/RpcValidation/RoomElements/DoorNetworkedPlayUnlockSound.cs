@@ -10,7 +10,7 @@ namespace Phasmatic.RpcValidation.RoomElements
     {
         public override string Name => "NetworkedPlayUnlockSound";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
             return true;
         }

@@ -4,8 +4,8 @@ namespace Phasmatic.RpcValidation {
 
     public override string Name => "PlayDoorNoise";
 
-    protected override bool ValidateInternal(RpcExecution execution)
-      => execution.Source.IsMasterClient;
+    protected override bool ValidateInternal(ref RpcExecutionContext ctx)
+      => ctx.Source.IsMasterClient;
 
   }
 

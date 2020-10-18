@@ -6,8 +6,8 @@ namespace Phasmatic.RpcValidation {
 
     public override string Name => "NetworkedUpdatePlayerSanity";
 
-    protected override bool ValidateInternal(RpcExecution execution)
-      => execution.Source.IsMasterClient;
+    protected override bool ValidateInternal(ref RpcExecutionContext ctx)
+      => ctx.Source.IsMasterClient;
 
   }
 

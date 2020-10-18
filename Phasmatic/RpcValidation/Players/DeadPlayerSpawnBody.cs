@@ -10,9 +10,9 @@ namespace Phasmatic.RpcValidation.Players
     {
         public override string Name => "SpawnBody";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
-            int modelId = execution.GetArgument<int>(0);
+            int modelId = ctx.GetArgument<int>(0);
 
             return true;
         }

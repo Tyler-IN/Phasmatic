@@ -10,10 +10,10 @@ namespace Phasmatic.RpcValidation.Effects
     {
         public override string Name => "SyncEvidenceAmount";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
-            int amount = execution.GetArgument<int>(0);
-            string argumentTypeName = execution.GetArgument<string>(1);
+            int amount = ctx.GetArgument<int>(0);
+            string argumentTypeName = ctx.GetArgument<string>(1);
             Enum.TryParse<EvidenceTypeEnum>(argumentTypeName.Replace(' ', '_'), out var evidenceType);
 
             return true;

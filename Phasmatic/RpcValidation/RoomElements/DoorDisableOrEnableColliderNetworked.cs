@@ -10,9 +10,9 @@ namespace Phasmatic.RpcValidation.RoomElements
     {
         public override string Name => "DisableOrEnableColliderNetworked";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
-            bool active = execution.GetArgument<bool>(0);
+            bool active = ctx.GetArgument<bool>(0);
 
             return true;
         }

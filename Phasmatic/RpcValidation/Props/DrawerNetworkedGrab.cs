@@ -10,7 +10,7 @@ namespace Phasmatic.RpcValidation.Props
     {
         public override string Name => "NetworkedGrab";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
             return true;
         }

@@ -10,9 +10,9 @@ namespace Phasmatic.RpcValidation.Items
     {
         public override string Name => "NetworkedUse";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
-            int actorId = execution.GetArgument<int>(0);
+            int actorId = ctx.GetArgument<int>(0);
 
             return true;
         }

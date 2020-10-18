@@ -14,20 +14,18 @@
             <HintPath>%(Identity)</HintPath>
             <Private>False</Private>
         </Reference>
-        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\mscorlib.dll"/>
-        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\netstandard.dll"/>
-        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\System.dll"/>
-        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\System.*.dll"/>
-        <PackageReference Include="CsvHelper" Version="15.0.8"/>
-        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Version="1.0.0"/>
+        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\mscorlib.dll" />
+        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\netstandard.dll" />
+        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\System.dll" />
+        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\System.*.dll" />
+        <PackageReference Include="CsvHelper" Version="15.0.8" />
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Version="1.0.0" />
     </ItemGroup>
 
     <Target Name="CopyToPluginDir" AfterTargets="Build">
         <ItemGroup>
             <CopyFiles Include="$(TargetDir)\**\*" />
         </ItemGroup>
-        <Copy SourceFiles="@(CopyFiles)"
-              DestinationFolder="$(PhasmophobiaGameDir)\BepInEx\plugins\Phasmatic"
-              UseHardlinksIfPossible="false"/>
+        <Copy SourceFiles="@(CopyFiles)" DestinationFolder="$(PhasmophobiaGameDir)\BepInEx\plugins\Phasmatic" UseHardlinksIfPossible="false" />
     </Target>
 </Project>

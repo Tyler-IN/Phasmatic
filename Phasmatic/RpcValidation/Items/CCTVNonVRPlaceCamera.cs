@@ -12,10 +12,10 @@ namespace Phasmatic.RpcValidation.Items
 
         public override string Name => "NonVRPlaceCamera";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
-            Vector3 point = execution.GetArgument(0, Vector3.Zero);
-            Quaternion quaternion = execution.GetArgument<Quaternion>(1);
+            Vector3 point = ctx.GetArgument(0, Vector3.Zero);
+            Quaternion quaternion = ctx.GetArgument<Quaternion>(1);
 
             return true;
         }

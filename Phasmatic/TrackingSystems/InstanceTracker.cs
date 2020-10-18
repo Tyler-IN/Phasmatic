@@ -59,14 +59,14 @@ namespace Phasmatic.TrackingSystems
         /// <summary>
         /// Gets all of the executions in the current game.
         /// </summary>
-        public IEnumerable<RpcExecution> Executions => rpcExecutions.ToArray(); //To keep this thread-safe, this execution is thrown to an array so another RPC can come along and update the list.
+        public IEnumerable<RpcExecutionContext> Executions => rpcExecutions.ToArray(); //To keep this thread-safe, this execution is thrown to an array so another RPC can come along and update the list.
 
         /// <summary>
         /// Gets all of the <see cref="RpcValidator"/> of a specific type.
         /// </summary>
         /// <typeparam name="T">Type of <see cref="RpcValidator"/> to look for.</typeparam>
         /// <returns><see cref="IEnumerable{T}"/> with all of the executions that match the specific type.</returns>
-        public IEnumerable<RpcExecution> GetExecutionsOf<T>() where T : RpcValidator
+        public IEnumerable<RpcExecutionContext> GetExecutionsOf<T>() where T : RpcValidator
         {
             return rpcExecutions.Where(e => e.Validator is T).ToArray();
         }
@@ -77,21 +77,21 @@ namespace Phasmatic.TrackingSystems
         /// <typeparam name="T">Type of <see cref="RpcValidator"/> to look for.</typeparam>
         /// <param name="timeLimit"><see cref="TimeSpan"/> limit to look backwards.</param>
         /// <returns><see cref="IEnumerable{T}"/> with all of the executions that match the specific parameters.</returns>
-        public IEnumerable<RpcExecution> GetLatestExecutionsOf<T>(TimeSpan timeLimit) where T : RpcValidator
+        public IEnumerable<RpcExecutionContext> GetLatestExecutionsOf<T>(TimeSpan timeLimit) where T : RpcValidator
         {
             DateTime earliest = DateTime.Now.Subtract(timeLimit);
             return rpcExecutions.Where(e => e.Validator is T).Where(e => e.Received >= earliest).ToArray();
         }
 
-        private List<RpcExecution> rpcExecutions = new List<RpcExecution>();
+        private List<RpcExecutionContext> rpcExecutions = new List<RpcExecutionContext>();
 
         /// <summary>
         /// Adds in an RPC Execution into the tracker.
         /// </summary>
-        /// <param name="execution"><see cref="RpcExecution"/> that was called.</param>
-        public void AddExecution(RpcExecution execution)
+        /// <param name="ctx"><see cref="RpcExecutionContext"/> that was called.</param>
+        public void AddExecution(RpcExecutionContext ctx)
         {
-            rpcExecutions.Add(execution);
+            rpcExecutions.Add(ctx);
         }
     }
 }

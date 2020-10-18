@@ -5,7 +5,7 @@ namespace Phasmatic.RpcValidation.Players
     {
         public override string Name => "Dead";
 
-        protected override bool ValidateInternal(RpcExecution execution) => execution.Source.IsMasterClient;
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx) => ctx.Source.IsMasterClient;
 
     }
 

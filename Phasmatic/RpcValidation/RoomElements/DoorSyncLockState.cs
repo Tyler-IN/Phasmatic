@@ -10,9 +10,9 @@ namespace Phasmatic.RpcValidation.RoomElements
     {
         public override string Name => "SyncLockState";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
-            bool isLocked = execution.GetArgument<bool>(0);
+            bool isLocked = ctx.GetArgument<bool>(0);
 
             return true;
         }

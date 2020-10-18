@@ -10,9 +10,9 @@ namespace Phasmatic.RpcValidation.RoomElements
     {
         public override string Name => "NetworkedChangeNightVision";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
-            bool on = execution.GetArgument<bool>(0);
+            bool on = ctx.GetArgument<bool>(0);
 
             return true;
         }

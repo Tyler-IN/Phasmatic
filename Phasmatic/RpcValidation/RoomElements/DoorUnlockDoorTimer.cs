@@ -10,9 +10,9 @@ namespace Phasmatic.RpcValidation.RoomElements
     {
         public override string Name => "UnlockDoorTimer";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
-            float timer = execution.GetArgument<float>(0);
+            float timer = ctx.GetArgument<float>(0);
 
             return true;
         }

@@ -10,7 +10,7 @@ namespace Phasmatic.RpcValidation.Interactables
     {
         public override string Name => "TurnAlarmOn";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
             return true;
         }

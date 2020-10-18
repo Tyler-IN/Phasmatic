@@ -10,9 +10,9 @@ namespace Phasmatic.RpcValidation.Events
     {
         public override string Name => "LoadPlayerModel";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
-            int index = execution.GetArgument<int>(0);
+            int index = ctx.GetArgument<int>(0);
 
             return true;
         }

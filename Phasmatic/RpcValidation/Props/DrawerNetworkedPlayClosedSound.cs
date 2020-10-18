@@ -12,7 +12,7 @@ namespace Phasmatic.RpcValidation.Props
 
         public override string Name => "NetworkedPlayClosedSound";
 
-        protected override bool ValidateInternal(RpcExecution execution)
+        protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
             return true;
         }
