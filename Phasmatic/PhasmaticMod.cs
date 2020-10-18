@@ -71,7 +71,7 @@ namespace Phasmatic {
     public static readonly RpcValidator[] RpcValidators
       = typeof(PhasmaticMod).Assembly
         .GetExportedTypes()
-        .Where(t => typeof(RpcValidator).IsAssignableFrom(t))
+        .Where(t => typeof(RpcValidator).IsAssignableFrom(t) && !t.IsAbstract)
         .Select(t => (RpcValidator) Activator.CreateInstance(t))
         .ToArray();
 
@@ -165,7 +165,7 @@ namespace Phasmatic {
         ? "Invalid View #{viewId}"
         : $"{view.gameObject.name} #{viewId} (owned by {view.ownerId})";
 
-      var senderDesc = $"{sender?.NickName ?? "Invalid Player"} #{senderID} {sender?.UserId}";
+      var senderDesc = $"{sender?.NickName ?? "Invalid Player"} #{senderID} STEAM:{sender?.UserId}";
 
       string rpcName;
       if (!rpcData.ContainsKey(___keyByteFive))
@@ -189,22 +189,30 @@ namespace Phasmatic {
       // will probably need to organize by view type then by name later since rpcs can have same names
       if (RpcValidatorsByRpcName.TryGetValue(rpcName, out var validator)) {
         if (view == null) {
+          Instance.LogError($"No View to match against validators");
           if (validator.View == null)
             if (!validator.Validate(view, sender, rpcName, rpcArgs)) {
               Instance.LogError($"RPC Validation failed!");
               // can return false to ignore RPC
-              return true;
+              return false;
             }
         }
         else {
+          /*
           var comp = view.ObservedComponents
             .FirstOrDefault(c => validator.View.IsInstanceOfType(c));
-          if (comp != null)
-            if (!validator.Validate(view, sender, rpcName, rpcArgs)) {
-              Instance.LogError($"RPC Validation failed!");
-              // can return false to ignore RPC
-              return true;
-            }
+          if (comp == null)
+            Instance.LogError($"No matching component on view for {validator.GetType().Name}");
+          else {
+            Instance.LogError($"Matched component on view for {validator.GetType().Name}");
+          }
+            */
+          
+          if (!validator.Validate(view, sender, rpcName, rpcArgs)) {
+            Instance.LogError($"RPC Validation failed!");
+            // can return false to ignore RPC
+            return false;
+          }
         }
       }
 
