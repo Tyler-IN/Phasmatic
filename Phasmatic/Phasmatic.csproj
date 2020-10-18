@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <RootNamespace>Phasmatic</RootNamespace>
+        <AssemblyName>Phasmatic</AssemblyName>
+        <TargetFramework>net472</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="$(PhasmophobiaGameDir)\BepInEx\core\*.dll">
+            <HintPath>%(Identity)</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\*.dll">
+            <HintPath>%(Identity)</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\mscorlib.dll" />
+        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\netstandard.dll" />
+        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\System.dll" />
+        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\System.*.dll" />
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Version="1.0.0" />
+    </ItemGroup>
+</Project>
