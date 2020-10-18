@@ -19,6 +19,10 @@
         <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\netstandard.dll" />
         <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\System.dll" />
         <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\System.*.dll" />
+        <PackageReference Include="CsvHelper" Version="15.0.8" />
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Version="1.0.0" />
     </ItemGroup>
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="copy /Y $(TargetPath) D:\SteamLibrary\steamapps\common\Phasmophobia\BepInEx\plugins\Phasmatic\" />
+    </Target>
 </Project>
