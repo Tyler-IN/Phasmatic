@@ -6,8 +6,8 @@ namespace Phasmatic.RpcValidation {
 
     public override string Name => "Hunting";
 
-    public override bool Validate(PhotonView view, PhotonPlayer source, string name, object[] arguments)
-      => source.IsMasterClient;
+    protected override bool ValidateInternal(RpcExecution execution)
+      => execution.Source.IsMasterClient;
 
   }
 

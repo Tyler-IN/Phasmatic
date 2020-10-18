@@ -1,6 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phasmatic", "Phasmatic\Phasmatic.csproj", "{FD2366B2-CDFE-45AC-BBE6-20248F91515E}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phasmatic", "Phasmatic\Phasmatic.csproj", "{FD2366B2-CDFE-45AC-BBE6-20248F91515E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DB354E6F-98CB-4ED4-AA5C-D055985C689B}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props.template = Directory.Build.props.template
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +20,11 @@ Global
 		{FD2366B2-CDFE-45AC-BBE6-20248F91515E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD2366B2-CDFE-45AC-BBE6-20248F91515E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD2366B2-CDFE-45AC-BBE6-20248F91515E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {509D5BAC-6CE7-4DCE-B377-FC631829EEE3}
 	EndGlobalSection
 EndGlobal
