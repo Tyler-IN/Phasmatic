@@ -29,4 +29,3 @@ obj/
 *.ipr
 *.user
 /.vs
-/Directory.Build.props
