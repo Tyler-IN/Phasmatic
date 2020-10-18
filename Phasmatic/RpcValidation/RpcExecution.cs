@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Phasmatic.RpcValidation
 {
-    public class RpcExecution
+    public struct RpcExecution
     {
         public RpcExecution(PhotonView view, PhotonPlayer source, string name, object[] arguments)
         {
@@ -16,6 +16,8 @@ namespace Phasmatic.RpcValidation
             Name = name;
             Arguments = arguments;
             View = view;
+            Validator = null;
+            IsValid = false;
         }
 
         public DateTime Received { get; }

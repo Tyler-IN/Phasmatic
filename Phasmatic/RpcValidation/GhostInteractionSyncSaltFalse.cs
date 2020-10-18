@@ -1,13 +1,13 @@
 namespace Phasmatic.RpcValidation {
 
-  public class GhostInteractionSyncSaltFalse : RpcValidator {
+  public class GhostInteractionSyncSaltFalse : RpcValidator<GhostInteraction> {
 
     public override System.Type View => typeof(GhostInteraction);
 
     public override string Name => "SyncSaltFalse";
 
-    public override bool Validate(PhotonView view, PhotonPlayer source, string name, object[] arguments)
-      => source.IsMasterClient;
+    protected override bool ValidateInternal(RpcExecution execution)
+      => execution.Source.IsMasterClient;
 
   }
 

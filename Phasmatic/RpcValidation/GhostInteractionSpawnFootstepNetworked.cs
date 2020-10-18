@@ -1,13 +1,10 @@
 namespace Phasmatic.RpcValidation {
 
-  public class GhostInteractionSpawnFootstepNetworked : RpcValidator {
-
-    public override System.Type View => typeof(GhostInteraction);
+  public class GhostInteractionSpawnFootstepNetworked : RpcValidator<GhostInteraction> {
 
     public override string Name => "SpawnFootstepNetworked";
-
-    public override bool Validate(PhotonView view, PhotonPlayer source, string name, object[] arguments)
-      => source.IsMasterClient;
+    protected override bool ValidateInternal(RpcExecution execution)
+      => execution.Source.IsMasterClient;
 
   }
 

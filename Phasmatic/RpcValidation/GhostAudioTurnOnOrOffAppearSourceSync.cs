@@ -1,13 +1,11 @@
 namespace Phasmatic.RpcValidation {
 
-  public class GhostAudioTurnOnOrOffAppearSourceSync : RpcValidator {
-
-    public override System.Type View => typeof(GhostAudio);
+  public class GhostAudioTurnOnOrOffAppearSourceSync : RpcValidator<GhostAudio> {
 
     public override string Name => "TurnOnOrOffAppearSourceSync";
 
-    public override bool Validate(PhotonView view, PhotonPlayer source, string name, object[] arguments)
-      => source.IsMasterClient;
+    protected override bool ValidateInternal(RpcExecution execution)
+      => execution.Source.IsMasterClient;
 
   }
 
