@@ -210,8 +210,8 @@ namespace Phasmatic
             var rpcArgsDesc = string.Join(", ", rpcArgs.Select(a => a.ToString()));
 
             Instance.Log($"Photon RPC {rpcName} from {senderDesc}: {rpcArgsDesc}");
-
-            var rpcExecCtx = new RpcExecutionContext(view, sender, rpcName, rpcArgs);
+            
+            var context = new RpcExecutionContext(view, sender, rpcName, rpcArgs);
 
             // will probably need to organize by view type then by name later since rpcs can have same names
             if (RpcValidatorsByRpcName.TryGetValue(rpcName, out var validator))
@@ -220,7 +220,7 @@ namespace Phasmatic
                 {
                     Instance.LogError($"No View to match against validators");
                     if (validator.View == null)
-                        if (!validator.Validate(ref rpcExecCtx))
+                        if (!validator.Validate(ref context))
                         {
                             Instance.LogError($"RPC Validation failed!");
                             // can return false to ignore RPC
@@ -239,7 +239,7 @@ namespace Phasmatic
                     }
                       */
 
-                    if (!validator.Validate(ref rpcExecCtx))
+                    if (!validator.Validate(ref context))
                     {
                         Instance.LogError($"RPC Validation failed!");
                         // can return false to ignore RPC
