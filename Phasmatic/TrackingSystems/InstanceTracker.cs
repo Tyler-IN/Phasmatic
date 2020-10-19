@@ -2,15 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Phasmatic.TrackingSystems
 {
     public class InstanceTracker
     {
-        private static InstanceTracker _current = null;
-        private static List<InstanceTracker> _all = new List<InstanceTracker>();
+        private static InstanceTracker? _current = null;
+        private static readonly List<InstanceTracker> _all = new List<InstanceTracker>();
 
         /// <summary>
         /// Gets the current instance tracker.

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 
 namespace Phasmatic.RpcValidation.Items
 {
@@ -14,7 +9,7 @@ namespace Phasmatic.RpcValidation.Items
 
         protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
-            Vector3 point = ctx.GetArgument(0, Vector3.Zero);
+            Vector3 point = ctx.GetArgument<Vector3>(0);
             Quaternion quaternion = ctx.GetArgument<Quaternion>(1);
 
             return true;

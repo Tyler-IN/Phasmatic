@@ -1,5 +1,3 @@
-using System.Linq;
-using ExitGames.Client.Photon;
 using Photon;
 using UnityEngine;
 

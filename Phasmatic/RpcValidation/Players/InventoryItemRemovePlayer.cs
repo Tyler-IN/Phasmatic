@@ -10,9 +10,10 @@ namespace Phasmatic.RpcValidation
 
         protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
+            var src = ctx.Source;
             var actorId = ctx.GetArgument<int>(0);
-            return actorId == 999 && ctx.Source.IsMasterClient
-              || ctx.Source.ID == actorId;
+            return (src == null || src.IsMasterClient) && actorId == 999
+                || src?.ID == actorId;
         }
 
     }

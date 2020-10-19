@@ -7,7 +7,7 @@ namespace Phasmatic.RpcValidation {
     public override string Name => "MakeGhostAppear";
 
     protected override bool ValidateInternal(ref RpcExecutionContext ctx)
-      => ctx.Source.IsMasterClient;
+      => ctx.Source?.IsMasterClient ?? true;
 
   }
 

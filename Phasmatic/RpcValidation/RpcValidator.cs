@@ -18,7 +18,8 @@ namespace Phasmatic.RpcValidation
 
         protected abstract bool ValidateInternal(ref RpcExecutionContext ctx);
 
-        public virtual bool Validate(ref RpcExecutionContext ctx)
+        // TODO: make virtual if ever direct overload necessary
+        public bool Validate(ref RpcExecutionContext ctx)
         {
             ctx.Validator = this;
             bool isValid = ValidateInternal(ref ctx);

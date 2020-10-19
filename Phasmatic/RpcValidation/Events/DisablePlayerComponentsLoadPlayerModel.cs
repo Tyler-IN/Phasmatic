@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Phasmatic.RpcValidation.Events
+﻿namespace Phasmatic.RpcValidation.Events
 {
     public class DisablePlayerComponentsLoadPlayerModel : RpcValidator<DisablePlayerComponents>
     {

@@ -1,44 +1,82 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
+using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 
-namespace Phasmatic.RpcValidation
-{
-    public struct RpcExecutionContext
-    {
-        public RpcExecutionContext(PhotonView view, PhotonPlayer source, string name, object[] arguments)
-        {
-            Received = DateTime.Now;
-            Source = source;
-            Name = name;
-            Arguments = arguments;
-            View = view;
-            Validator = null;
-            IsValid = false;
-        }
+namespace Phasmatic.RpcValidation {
 
-        public DateTime Received { get; }
-        public PhotonView View { get; }
-        public PhotonPlayer Source { get; }
-        public string Name { get; }
-        public object[] Arguments { get; }
-        public RpcValidator Validator { get; set; }
-        public bool? IsValid { get; set; }
+  [PublicAPI]
+  public struct RpcExecutionContext {
 
-        public T GetArgument<T>(int index, T defaultObj)
-        {
-            if (Arguments == null || Arguments.Length <= index) return defaultObj;
-            if (Arguments[index] == null) return defaultObj;
-            if (!(Arguments[index] is T)) return defaultObj;
-            return (T)Arguments[index];
-        }
-
-        public T GetArgument<T>(int index)
-        {
-            return GetArgument(index, default(T));
-        }
+    public RpcExecutionContext(PhotonView? view, PhotonPlayer? source, string? name, MethodInfo? method, object[]? arguments) {
+      Received = DateTime.Now;
+      Source = source;
+      Name = name;
+      Method = method;
+      Arguments = arguments ?? new object[0];
+      View = view;
+      Validator = null;
+      IsValid = false;
     }
+
+    public DateTime Received { get; }
+
+    public PhotonView? View { get; }
+
+    public PhotonPlayer? Source { get; }
+
+    public string? Name { get; }
+
+    public MethodInfo? Method { get; }
+
+    public Type? ViewType => Method?.DeclaringType;
+
+    public object[] Arguments { get; }
+
+    public RpcValidator? Validator { get; set; }
+
+    public bool IsValid { get; set; }
+
+    // ReSharper disable once MethodOverloadWithOptionalParameter
+    public T? GetArgument<T>(int index, T? defaultObj = null) where T : class {
+      if (index < 0 || Arguments.Length <= index) throw new ArgumentOutOfRangeException(nameof(index));
+
+      return Arguments[index] switch {
+        T value => value,
+        null => defaultObj,
+        _ => throw new ArgumentException("Type does not match.", nameof(T))
+      };
+    }
+
+    public T GetArgument<T>(int index) where T : notnull {
+      if (index < 0 || Arguments.Length <= index) throw new ArgumentOutOfRangeException(nameof(index));
+
+      return Arguments[index] is T value ? value
+        : throw new ArgumentException("Type does not match.", nameof(T));
+    }
+
+    public bool TryGetArgument<T>(int index, [NotNullWhen(true)] out T? value) where T : class {
+      try {
+        value = GetArgument<T>(index);
+        return true;
+      }
+      catch {
+        value = default;
+        return false;
+      }
+    }
+
+    public bool TryGetValueArgument<T>(int index, out T value) where T : struct {
+      try {
+        value = GetArgument<T>(index);
+        return true;
+      }
+      catch {
+        value = default;
+        return false;
+      }
+    }
+
+  }
+
 }

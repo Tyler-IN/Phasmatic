@@ -7,10 +7,9 @@ namespace Phasmatic.RpcValidation {
     public override string Name => "SetPlayerData";
 
     protected override bool ValidateInternal(ref RpcExecutionContext ctx) {
-
       var playerId = ctx.GetArgument<int>(0);
       var player = PhotonPlayer.Find(playerId);
-      return player != null && ctx.Source.Equals(player);
+      return player != null && (ctx.Source?.Equals(player) ?? false);
     }
 
   }

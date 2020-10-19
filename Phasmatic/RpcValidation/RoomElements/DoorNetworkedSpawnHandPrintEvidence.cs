@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Phasmatic.RpcValidation.RoomElements
+﻿namespace Phasmatic.RpcValidation.RoomElements
 {
     public class DoorNetworkedSpawnHandPrintEvidence : RpcValidator<Door>
     {
