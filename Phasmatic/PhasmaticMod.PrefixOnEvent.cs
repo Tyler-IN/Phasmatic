@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using ExitGames.Client.Photon;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Analytics;
 
@@ -17,7 +18,7 @@ namespace Phasmatic {
         case 201:
         case 206: // sync object?
         {
-          var eventData = (Hashtable) photonEvent[245];
+          var eventData = (Hashtable) photonEvent.Parameters[245];
           var timestamp = (int) eventData[0];
           var hasPrefix = eventData.ContainsKey(1);
           var prefix = hasPrefix ? (short) eventData[1] : -1;
@@ -28,14 +29,14 @@ namespace Phasmatic {
             var args = eventData[argKeyA];
             argKeyA += 1;
           }
-          
+
           // TODO: validate
-          
+
           break;
         }
         case 202: // Instantiate
         {
-          var eventData = (Hashtable) photonEvent[245];
+          var eventData = (Hashtable) photonEvent.Parameters[245];
           var prefabId = (string) eventData[0];
           var position = eventData.ContainsKey(1) ? (Vector3) eventData[1] : default;
           var rotation = eventData.ContainsKey(2) ? (Quaternion) eventData[2] : default;
@@ -56,7 +57,7 @@ namespace Phasmatic {
             // can't find view
           }
           */
-          
+
           // TODO: validate
 
           break;
@@ -64,7 +65,7 @@ namespace Phasmatic {
 
         case 204: // Destroy
         {
-          var eventData = (Hashtable) photonEvent[245];
+          var eventData = (Hashtable) photonEvent.Parameters[245];
           var viewId = (int) eventData[0];
 
           PhotonView? view = null;
@@ -74,32 +75,28 @@ namespace Phasmatic {
           catch {
             // can't find view
           }
-          
+
           // TODO: validate
 
           break;
         }
         case 207: // DestroyAll
         {
-          
           // TODO: validate
           break;
         }
         case 209: // OwnershipRequest
         {
-          
           // TODO: validate
           break;
         }
         case 210: // OwnershipTransfer
         {
-          
           // TODO: validate
           break;
         }
         case 212: // reload level?
         {
-          
           var isAsync = (bool) photonEvent.Parameters[245];
           var scene = SceneManagerHelper.ActiveSceneName;
           // TODO: validate

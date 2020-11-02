@@ -11,6 +11,7 @@ using ExitGames.Client.Photon;
 using HarmonyLib;
 using JetBrains.Annotations;
 using Phasmatic.RpcValidation;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
@@ -20,6 +21,12 @@ namespace Phasmatic {
   [PublicAPI]
   [BepInPlugin(nameof(Phasmatic), nameof(Phasmatic), "0.1.1.0")]
   public partial class PhasmaticMod : BaseUnityPlugin {
+
+    internal static LevelController LevelController => LevelController.ऩऩठजधणछढदटद;
+
+    internal static GhostAI GhostAI => LevelController.ऩऩठजधणछढदटद.तऩझनतडनणठछत;
+    
+    internal static GameController GameController => GameController.ऩऩठजधणछढदटद;
 
     private GameObject? _go;
 
@@ -31,15 +38,15 @@ namespace Phasmatic {
       Instance = this;
       var unityLogger = Debug.unityLogger;
       //unityLogger.logHandler = new PhasmaticLog();
-      unityLogger.filterLogType = LogType.Log;
-      unityLogger.logEnabled = true;
+      //unityLogger.filterLogType = LogType.Log;
+      //unityLogger.logEnabled = true;
 
       SceneManager.sceneLoaded += (scene, mode) => {
         // TODO: analyze
-        Debug.Log($"Scene Loaded: {scene.path} \"{scene.name}\"");
+        Debug.Log($"Scene Loaded: \"{scene.name}\"");
 
-        if (scene.path.StartsWith("Assets/Scenes/Menu"))
-          OnMenuLoaded();
+        //if (scene.path.StartsWith("Assets/Scenes/Menu"))
+        //  OnMenuLoaded();
       };
 
       AppDomain.CurrentDomain.UnhandledException += (sender, args) => {
@@ -50,7 +57,7 @@ namespace Phasmatic {
         var exc = args.Exception;
         var sf = new StackFrame(1, false);
         var mb = sf.GetMethod();
-        Debug.unityLogger.LogWarning("FCE", $"{mb.FullDescription()}:IL_{sf.GetILOffset():X4}: {exc.GetType().Name}: {exc.Message}");
+        Debug.unityLogger.Log(LogType.Warning, $"FCE: {mb.FullDescription()}:IL_{sf.GetILOffset():X4}: {exc.GetType().Name}: {exc.Message}");
       };
 
       TaskScheduler.UnobservedTaskException += (sender, args) => {
@@ -59,7 +66,7 @@ namespace Phasmatic {
           var st = new StackTrace(exc);
           var sf = st.GetFrame(1);
           var mb = sf.GetMethod();
-          Debug.unityLogger.LogWarning("UTE", $"{mb.FullDescription()}:IL_{sf.GetILOffset():X4}: {exc.GetType().Name}: {exc.Message}");
+          Debug.unityLogger.Log(LogType.Error, $"UTE: {mb.FullDescription()}:IL_{sf.GetILOffset():X4}: {exc.GetType().Name}: {exc.Message}");
         }
       };
     }
@@ -89,13 +96,11 @@ namespace Phasmatic {
 
       _menuLoaded = true;
 
-      Debug.developerConsoleVisible = false;
-      PhotonNetwork.logLevel = PhotonLogLevel.Full;
+      //Debug.developerConsoleVisible = false;
+      PhotonNetwork.LogLevel = PunLogLevel.Full;
 
-      _go = new GameObject("Phasmatic");
-      _go.isStatic = true;
+      _go = new GameObject("Phasmatic", typeof(PhasmaticPun));
       _go.hideFlags |= HideFlags.HideAndDontSave | HideFlags.DontUnloadUnusedAsset;
-      _go.AddComponent<PhasmaticPun>();
       _go.SetActive(true);
       DontDestroyOnLoad(_go);
 

@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using Photon;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 namespace Phasmatic {
 
-  public class PhasmaticPun : PunBehaviour {
+  public class PhasmaticPun : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback, IPunOwnershipCallbacks, ILobbyCallbacks {
 
     private void Awake() {
       PhasmaticMod.Instance.Log("PhasmaticPun Awake");
@@ -32,57 +35,36 @@ namespace Phasmatic {
     private void OnDestroy() {
       PhasmaticMod.Instance.Log("PhasmaticPun OnDestroy");
     }
-
+    
     public override void OnConnectedToMaster() {
       // TODO: analyze
       PhasmaticMod.Instance.Log("OnConnectedToMaster");
     }
 
-    public override void OnPhotonPlayerPropertiesChanged(object[] playerAndUpdatedProps) {
-      // TODO: analyze
-      PhasmaticMod.Instance.Log("OnPhotonPlayerPropertiesChanged");
-    }
 
-    public override void OnOwnershipRequest(object[] viewAndPlayer) {
+    public void OnOwnershipRequest(PhotonView targetView, Photon.Realtime.Player requestingPlayer) {
       // TODO: analyze
       PhasmaticMod.Instance.Log("OnOwnershipRequest");
     }
 
-    public override void OnLobbyStatisticsUpdate() {
+    public void OnOwnershipTransfered(PhotonView targetView, Photon.Realtime.Player previousOwner) {
+      throw new System.NotImplementedException();
+    }
+    public override void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics) {
       // TODO: analyze
       PhasmaticMod.Instance.Log("OnLobbyStatisticsUpdate");
     }
 
-    public override void OnPhotonPlayerActivityChanged(PhotonPlayer otherPlayer) {
+    public void OnPhotonInstantiate(PhotonMessageInfo info) {
       // TODO: analyze
-      PhasmaticMod.Instance.Log($"OnPhotonPlayerActivityChanged {otherPlayer.ID}");
-    }
-
-    public override void OnConnectedToPhoton() {
-      // TODO: analyze
-      PhasmaticMod.Instance.Log("OnConnectedToPhoton");
-    }
-
-    public override void OnDisconnectedFromPhoton() {
-      // TODO: analyze
-      PhasmaticMod.Instance.Log("OnDisconnectedFromPhoton");
-    }
-
-    public override void OnPhotonInstantiate(PhotonMessageInfo info) {
-      // TODO: analyze
-      PhasmaticMod.Instance.Log($"OnPhotonInstantiate from {info.sender.ID} view {info.photonView.viewID}");
+      PhasmaticMod.Instance.Log($"OnPhotonInstantiate from {info.Sender.ActorNumber} view {info.photonView.ViewID}");
     }
 
     public override void OnJoinedRoom() {
       // TODO: analyze
       PhasmaticMod.Instance.Log("OnJoinedRoom");
     }
-
-    public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer) {
-      // TODO: analyze
-      PhasmaticMod.Instance.Log($"OnPhotonPlayerConnected {newPlayer.ID}");
-    }
-
+    
     public override void OnCreatedRoom() {
       // TODO: analyze
       PhasmaticMod.Instance.Log("OnCreatedRoom");
@@ -105,20 +87,19 @@ namespace Phasmatic {
 
     public void PhotonWindowCallback(int windowID) {
       try {
-        GUILayout.Label($"State: {PhotonNetwork.connectionStateDetailed.ToString()}");
+        GUILayout.Label($"State: {PhotonNetwork.NetworkClientState}");
 
         if (GUILayout.Button("Toggle Offline Mode")) {
-          PhotonNetwork.offlineMode = !PhotonNetwork.offlineMode;
+          PhotonNetwork.OfflineMode = !PhotonNetwork.OfflineMode;
         }
 
-        if ((PhotonNetwork.connected || PhotonNetwork.connecting) && GUILayout.Button("Disconnect")) {
+        if (PhotonNetwork.IsConnected && GUILayout.Button("Disconnect")) {
           PhotonNetwork.Disconnect();
         }
 
-        if (!PhotonNetwork.connected && !PhotonNetwork.connecting
-          && GUILayout.Button("Reconnect to Photon Cloud")) {
+        if (!PhotonNetwork.IsConnected && GUILayout.Button("Reconnect to Photon Cloud")) {
           //_hostedMode = false;
-          PhotonNetwork.offlineMode = false;
+          PhotonNetwork.OfflineMode = false;
           FindObjectOfType<SteamAuth>().ConnectViaSteamAuthenticator();
         }
 
@@ -161,8 +142,8 @@ namespace Phasmatic {
         var height = GUI.skin.box.CalcHeight(new GUIContent(statsStr), boxMaxWidth);
         GUILayout.Box(
           statsStr,
-          GUILayout.MaxWidth(boxMaxWidth),
-          GUILayout.MinHeight(height)
+          GUILayout.Width(boxMaxWidth),
+          GUILayout.Height(height)
         );
         GUILayout.EndHorizontal();
 
@@ -180,7 +161,6 @@ namespace Phasmatic {
 
       GUI.DragWindow();
     }
-
   }
 
 }

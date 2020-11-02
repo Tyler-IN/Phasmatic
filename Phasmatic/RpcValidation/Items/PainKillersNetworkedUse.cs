@@ -6,7 +6,8 @@ namespace Phasmatic.RpcValidation {
 
         protected override bool ValidateInternal(ref RpcExecutionContext ctx)
         {
-            var actorId = ctx.GetArgument<PhotonPlayer>(0); // ?
+            //var actorId = ctx.GetArgument<PhotonPlayer>(0); // ?
+            var actorId = ctx.GetArgument<Photon.Realtime.Player>(0); // ?
             return ctx.Source?.Equals(actorId) ?? false;
         }
   }

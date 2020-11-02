@@ -12,15 +12,16 @@
             <HintPath>%(Identity)</HintPath>
             <Private>False</Private>
         </Reference>
-        <Reference Include="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\*.dll">
+        <Reference Include="$(PhasmophobiaGameLibDir)\*.dll">
             <HintPath>%(Identity)</HintPath>
             <Private>False</Private>
         </Reference>
-        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\mscorlib.dll" />
-        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\netstandard.dll" />
-        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\System.dll" />
-        <Reference Remove="$(PhasmophobiaGameDir)\Phasmophobia_Data\Managed\System.*.dll" />
+        <Reference Remove="$(PhasmophobiaGameLibDir)\mscorlib.dll" />
+        <Reference Remove="$(PhasmophobiaGameLibDir)\netstandard.dll" />
+        <Reference Remove="$(PhasmophobiaGameLibDir)\System.dll" />
+        <Reference Remove="$(PhasmophobiaGameLibDir)\System.*.dll" />
         <PackageReference Include="CsvHelper" Version="15.0.8" />
+        <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
         <PackageReference Include="Nullable" Version="1.3.0" PrivateAssets="All" />
     </ItemGroup>

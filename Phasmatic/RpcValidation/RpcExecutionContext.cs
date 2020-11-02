@@ -2,13 +2,14 @@
 using System.Reflection;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
+using Photon.Pun;
 
 namespace Phasmatic.RpcValidation {
 
   [PublicAPI]
   public struct RpcExecutionContext {
 
-    public RpcExecutionContext(PhotonView? view, PhotonPlayer? source, string? name, MethodInfo? method, object[]? arguments) {
+    public RpcExecutionContext(PhotonView? view, Photon.Realtime.Player? source, string? name, MethodInfo? method, object[]? arguments) {
       Received = DateTime.Now;
       Source = source;
       Name = name;
@@ -23,7 +24,7 @@ namespace Phasmatic.RpcValidation {
 
     public PhotonView? View { get; }
 
-    public PhotonPlayer? Source { get; }
+    public Photon.Realtime.Player? Source { get; }
 
     public string? Name { get; }
 

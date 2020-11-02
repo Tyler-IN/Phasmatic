@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using ExitGames.Client.Photon;
 using Phasmatic.RpcValidation;
+using Photon.Pun;
 
 namespace Phasmatic {
 
@@ -16,9 +17,9 @@ namespace Phasmatic {
       ref object ___keyByteThree,
       ref object ___keyByteFour,
       ref object ___keyByteFive) {
-      PhotonPlayer? sender = null;
+      Photon.Realtime.Player? sender = null;
       try {
-        sender = PhotonPlayer.Find(senderID);
+        sender = PhotonNetwork.CurrentRoom.GetPlayer(senderID);
       }
       catch {
         // can't find sender
@@ -36,7 +37,7 @@ namespace Phasmatic {
 
       var viewDesc = view == null
         ? "Invalid View #{viewId}"
-        : $"{view.gameObject.name} #{viewId} (owned by {view.ownerId})";
+        : $"{view.gameObject.name} #{viewId} (owned by {view.OwnerActorNr})";
 
       var senderDesc = $"{sender?.NickName ?? "Invalid Player"} #{senderID} STEAM:{sender?.UserId}";
 

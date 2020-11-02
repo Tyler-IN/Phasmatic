@@ -7,7 +7,7 @@ namespace Phasmatic.RpcValidation {
     public override string Name => "MakeGhostAppear";
 
     protected override bool ValidateInternal(ref RpcExecutionContext ctx) {
-      var ghost = LevelController.instance.currentGhost;
+      var ghost = PhasmaticMod.GhostAI;
       
       if (ghost == null) return false;
       

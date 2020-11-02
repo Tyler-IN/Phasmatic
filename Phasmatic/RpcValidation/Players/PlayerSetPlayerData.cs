@@ -1,3 +1,5 @@
+using Photon.Pun;
+
 namespace Phasmatic.RpcValidation {
 
   public class PlayerSetPlayerData : RpcValidator {
@@ -8,7 +10,7 @@ namespace Phasmatic.RpcValidation {
 
     protected override bool ValidateInternal(ref RpcExecutionContext ctx) {
       var playerId = ctx.GetArgument<int>(0);
-      var player = PhotonPlayer.Find(playerId);
+      var player = PhotonNetwork.CurrentRoom.Players[playerId];
       return player != null && (ctx.Source?.Equals(player) ?? false);
     }
 

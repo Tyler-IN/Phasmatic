@@ -7,9 +7,10 @@ namespace Phasmatic.RpcValidation {
     public override string Name => "SyncValuesNetworked";
 
     protected override bool ValidateInternal(ref RpcExecutionContext ctx) {
-      if (!GameController.instance.allPlayersAreConnected) return false;
+      //if (!PhasmaticMod.GameController.allPlayersAreConnected) return false;
+      if (!PhasmaticMod.GameController.दतऩटऩणणचझढत) return false;
       
-      var ghost = LevelController.instance.currentGhost;
+      var ghost = PhasmaticMod.GhostAI;
       
       if (ghost != null) return false;
       

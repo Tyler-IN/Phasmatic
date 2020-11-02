@@ -10,7 +10,7 @@ namespace Phasmatic.RpcValidation {
       var src = ctx.Source;
       var actorId = ctx.GetArgument<int>(0);
       return (src == null || src.IsMasterClient) && actorId == 999
-        || src?.ID == actorId;
+        || src?.ActorNumber == actorId;
     }
 
   }
